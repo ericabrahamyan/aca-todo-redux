@@ -1,10 +1,12 @@
 import { ClickCounter, HoverCounter } from "./components";
+import Todos from "./components/Todos";
 
 function App() {
   return (
     <div className="App">
-      <ClickCounter />
-      <HoverCounter />
+      <Todos />
+      {/* <ClickCounter />
+      <HoverCounter /> */}
     </div>
   );
 }

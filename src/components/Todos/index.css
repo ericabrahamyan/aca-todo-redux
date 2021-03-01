@@ -1,0 +1,41 @@
+.todo {
+  background-color: rgb(40, 80, 110);
+  color: white;
+  width: 500px;
+  margin: 10px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+}
+
+h2 {
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+button.create-todo-btn {
+  margin-top: 5px;
+}
+
+.todo .todo-item {
+  width: 100%;
+  display: flex;
+  margin-top: 8px;
+  justify-content: space-between;
+}
+
+.todo .todo-item input {
+  width: 380px;
+}
+
+.todo-item-text {
+  cursor: pointer;
+}
+.todo-item--completed {
+  text-decoration: line-through;
+}
+
+.todo-action-buttons button {
+  margin-left: 5px;
+}

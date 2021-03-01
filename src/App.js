@@ -1,13 +1,14 @@
-import { ClickCounter, HoverCounter } from "./components";
 import Todos from "./components/Todos";
+import { Provider as ReduxProvider } from "react-redux";
+import store from "./store";
 
 function App() {
   return (
-    <div className="App">
-      <Todos />
-      {/* <ClickCounter />
-      <HoverCounter /> */}
-    </div>
+    <ReduxProvider store={store}>
+      <div className="App">
+        <Todos />
+      </div>
+    </ReduxProvider>
   );
 }
 

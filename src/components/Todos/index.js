@@ -1,51 +1,50 @@
 import { Component } from "react";
+import { connect } from "react-redux";
 import CreateTodo from "./CreateTodo";
-import "./index.css";
 import TodoList from "./TodoList";
+import "./index.css";
 
 class Todos extends Component {
-  state = {
-    items: [
-      {
-        id: 123123,
-        task: "Write Todo App",
-        isCompleted: false,
-      },
-    ],
-  };
 
   onCreate = (todo) => {
-    this.setState((state) => ({
-      items: [...state.items, todo],
-    }));
+    this.props.dispatch({
+      type: 'todo/add',
+      payload: {
+        todo
+      }
+    })
   };
 
   onDelete = (itemId) => {
-    this.setState((state) => ({
-      items: state.items.filter((item) => item.id !== itemId),
-    }));
+    this.props.dispatch({
+      type: 'todo/delete',
+      payload: {
+        itemId
+      }
+    })
   };
 
   onEdit = (newValue, itemId) => {
-    this.setState((state) => ({
-      items: state.items.map((item) => {
-        if (item.id !== itemId) return { ...item };
-        return { ...item, task: newValue };
-      }),
-    }));
+    this.props.dispatch({
+      type: 'todo/edit',
+      payload: {
+        newValue,
+        itemId
+      }
+    })
   };
 
   onToggleComplete = (itemId) => {
-    this.setState((state) => ({
-      items: state.items.map((item) => {
-        if (item.id !== itemId) return { ...item };
-        return { ...item, isCompleted: !item.isCompleted };
-      }),
-    }));
+    this.props.dispatch({
+      type: 'todo/toggleComplete',
+      payload: {
+        itemId
+      }
+    })
   };
 
   render() {
-    const { items } = this.state;
+    const { todos: items } = this.props;
 
     return (
       <div className="todo">
@@ -62,4 +61,10 @@ class Todos extends Component {
   }
 }
 
-export default Todos;
+function mapStateToProps(state) {
+  return {
+    todos: state.todos
+  }
+}
+
+export default connect(mapStateToProps)(Todos) ;

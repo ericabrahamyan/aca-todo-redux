@@ -1,70 +1,62 @@
-import { Component } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CreateTodo from "./CreateTodo";
 import TodoList from "./TodoList";
 import "./index.css";
 
-class Todos extends Component {
+const Todos = (props) => {
 
-  onCreate = (todo) => {
-    this.props.dispatch({
-      type: 'todo/add',
+  const items = useSelector(state => state.todos)
+  const dispatch = useDispatch();
+
+  const onCreate = (todo) => {
+    dispatch({
+      type: "todo/add",
       payload: {
-        todo
-      }
-    })
+        todo,
+      },
+    });
   };
 
-  onDelete = (itemId) => {
-    this.props.dispatch({
-      type: 'todo/delete',
+  const onDelete = (itemId) => {
+    dispatch({
+      type: "todo/delete",
       payload: {
-        itemId
-      }
-    })
+        itemId,
+      },
+    });
   };
 
-  onEdit = (newValue, itemId) => {
-    this.props.dispatch({
-      type: 'todo/edit',
+  const onEdit = (newValue, itemId) => {
+    dispatch({
+      type: "todo/edit",
       payload: {
         newValue,
-        itemId
-      }
-    })
+        itemId,
+      },
+    });
   };
 
-  onToggleComplete = (itemId) => {
-    this.props.dispatch({
-      type: 'todo/toggleComplete',
+  const onToggleComplete = (itemId) => {
+    dispatch({
+      type: "todo/toggleComplete",
       payload: {
-        itemId
-      }
-    })
+        itemId,
+      },
+    });
   };
 
-  render() {
-    const { todos: items } = this.props;
+  return (
+    <div className="todo">
+      <CreateTodo onCreate={onCreate} />
 
-    return (
-      <div className="todo">
-        <CreateTodo onCreate={this.onCreate} />
+      <TodoList
+        items={items}
+        onDelete={onDelete}
+        onEdit={onEdit}
+        onToggleComplete={onToggleComplete}
+      />
+    </div>
+  );
+};
 
-        <TodoList
-          items={items}
-          onDelete={this.onDelete}
-          onEdit={this.onEdit}
-          onToggleComplete={this.onToggleComplete}
-        />
-      </div>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    todos: state.todos
-  }
-}
-
-export default connect(mapStateToProps)(Todos) ;
+export default Todos;

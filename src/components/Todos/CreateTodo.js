@@ -1,47 +1,39 @@
-import { Component } from "react";
+import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
-class CreateTodo extends Component {
-  state = {
-    taskValue: "",
-  };
+const CreateTodo = (props) => {
+  const [taskValue, setTaskValue] = useState("");
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     const { value } = e.target;
-    this.setState({
-      taskValue: value,
-    });
+    setTaskValue(value);
   };
 
-  handleCreate = () => {
+  const handleCreate = () => {
     const todo = {
       id: uuid(),
-      task: this.state.taskValue,
+      task: taskValue,
       isCompleted: false,
     };
 
-    this.props.onCreate(todo);
-    this.setState({
-      taskValue: "",
-    });
+    props.onCreate(todo);
+    setTaskValue("");
   };
 
-  render() {
-    return (
-      <>
-        <h2>Create Todos</h2>
-        <input
-          type="text"
-          placeholder="write task"
-          value={this.state.taskValue}
-          onChange={this.handleChange}
-        />
-        <button className="create-todo-btn" onClick={this.handleCreate}>
-          Create
-        </button>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <h2>Create Todos</h2>
+      <input
+        type="text"
+        placeholder="write task"
+        value={taskValue}
+        onChange={handleChange}
+      />
+      <button className="create-todo-btn" onClick={handleCreate}>
+        Create
+      </button>
+    </>
+  );
+};
 
 export default CreateTodo;

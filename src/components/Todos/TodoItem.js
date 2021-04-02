@@ -7,6 +7,8 @@ const TodoItem = (props) => {
   const resetEditingState = () => {
     setIsEditing(false);
     setEditedValue("");
+
+    // some changes
   };
 
   const handleChange = (e) => {

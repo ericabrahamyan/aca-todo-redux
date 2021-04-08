@@ -2,6 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import CreateTodo from "./CreateTodo";
 import TodoList from "./TodoList";
 import "./index.css";
+import { useEffect } from "react";
+import { createAddTodoAction } from "../../store/reducers/todoReducer";
+import { fetchTodos } from "../../store/asyncActions/todos";
 
 const Todos = (props) => {
 
@@ -9,12 +12,7 @@ const Todos = (props) => {
   const dispatch = useDispatch();
 
   const onCreate = (todo) => {
-    dispatch({
-      type: "todo/add",
-      payload: {
-        todo,
-      },
-    });
+    dispatch(createAddTodoAction(todo));
   };
 
   const onDelete = (itemId) => {
@@ -45,6 +43,10 @@ const Todos = (props) => {
     });
   };
 
+  const handleFetchTodosClick = () => {
+    dispatch(fetchTodos())
+  }
+
   return (
     <div className="todo">
       <CreateTodo onCreate={onCreate} />
@@ -55,6 +57,10 @@ const Todos = (props) => {
         onEdit={onEdit}
         onToggleComplete={onToggleComplete}
       />
+
+      <button onClick={handleFetchTodosClick}>
+        Fetch Todos
+      </button>
     </div>
   );
 };
